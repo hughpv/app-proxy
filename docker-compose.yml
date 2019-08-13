@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  root:
+    build:
+      context: root
+      dockerfile: Dockerfile
+    restart: always
+  
+  foo:
+    build:
+      context: foo
+      dockerfile: Dockerfile
+    restart: always
+
+  reverseproxy:
+    build:
+      context: reverseproxy
+      dockerfile: Dockerfile
+    depends_on:
+      - root
+      - foo
+    ports:
+      - 8080:8080
+    restart: always
